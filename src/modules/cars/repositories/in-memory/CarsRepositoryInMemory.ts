@@ -1,5 +1,5 @@
-import { Car } from "../entities/Car";
-import { ICarsRepository } from "./ICarRepository";
+import { Car } from "../../entities/Car";
+import { ICarsRepository } from "../ICarsRepository";
 
 class CarsRepositoryInMemory implements ICarsRepository {
   cars: Car[] = [];

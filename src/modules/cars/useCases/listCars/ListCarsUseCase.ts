@@ -1,20 +1,18 @@
-import { query } from "express";
-import { injectable } from "tsyringe";
-
-import { api } from "@shared/infra/http/axios";
+import { Car } from "@modules/cars/entities/Car";
+import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
+import { inject, injectable } from "tsyringe";
 
 @injectable()
 class ListCarUseCase {
-  async execute(): Promise<any> {
-    const cars = await api.get("cars", {
-      params: {
-        _sort: "brand",
-        _order: "desc",
-        q: query,
-      },
-    });
+  constructor(
+    @inject("CarsRepository")
+    private carsRepository: ICarsRepository,
+  ) {}
 
-    return cars.data;
+  async execute(): Promise<Car[]> {
+    const cars = await this.carsRepository.listCars();
+
+    return cars;
   }
 }
 export { ListCarUseCase };
