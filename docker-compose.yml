@@ -1,9 +1,22 @@
 version: "3.7"
 
 services: 
- 
-    
-   app: 
+
+  database_logs:
+    image: postgres
+    container_name: database_logs
+    restart: always
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=bhut
+      - POSTGRES_PASSWORD=bhut
+      - POSTGRES_DB=database_logs
+    volumes:
+      - pgdata:/data/postgres
+
+   
+  app: 
       build: .
       container_name: bhut-api
       restart: always
@@ -12,6 +25,10 @@ services:
       - 9229:9229
       volumes: 
       - .:/usr/app
+      links: 
+      - database_logs
+      depends_on: 
+      - database_logs
 
 
 volumes:
