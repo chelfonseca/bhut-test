@@ -3,7 +3,7 @@ import { Car } from "@modules/cars/entities/Car";
 
 import { api } from "@shared/infra/http/axios";
 
-import { ICarsRepository } from "../ICarsRepository";
+import { ICarsRepository } from "../../../repositories/ICarsRepository";
 
 class CarsRepository implements ICarsRepository {
   async createCar({ title, brand, price, age }: ICreateCarDTO): Promise<Car> {
@@ -14,7 +14,17 @@ class CarsRepository implements ICarsRepository {
       age,
     });
 
-    car = createCarResponse.data;
+    const { _id: id, __v } = createCarResponse.data;
+
+    const car = {
+      id,
+      title,
+      brand,
+      price,
+      age,
+      __v,
+    };
+
     return car;
   }
   async listCars(): Promise<Car[]> {

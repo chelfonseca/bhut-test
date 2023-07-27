@@ -1,4 +1,4 @@
-import { v4 as uuidV4 } from "uuid";
+// import { v4 as uuidV4 } from "uuid";
 
 class Car {
   id: string;
@@ -6,13 +6,14 @@ class Car {
   brand: string;
   price: string;
   age: number;
+  __v?: number;
 
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
-      this.age = 0;
-    }
-  }
+  // constructor() {
+  //   if (!this.id) {
+  //     this.id = uuidV4();
+  //     this.age = 0;
+  //   }
+  // }
 }
 
 export { Car };

@@ -33,11 +33,11 @@ class CreateCarUseCase {
       age,
     });
 
-    console.log(car.id);
+    // const car_id = car.id
 
-    const carLog = await this.carsLogsRepository.createCarlog(car_id);
+    const carLog = await this.carsLogsRepository.createCarlog(car.id);
 
-    const response = {
+    const response: IResponse = {
       car,
       carLog,
     };
