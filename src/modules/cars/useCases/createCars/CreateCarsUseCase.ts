@@ -1,8 +1,9 @@
 import { Car } from "@modules/cars/entities/Car";
-import { CreateCarLog } from "@modules/cars/infra/typeorm/entities/CreateCarLog";
+import { CarLog } from "@modules/cars/infra/typeorm/entities/CarLog";
 import { ICarsLogsRepository } from "@modules/cars/repositories/ICarsLogsRepository";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { inject, injectable } from "tsyringe";
+import { Twilio } from "twilio";
 
 interface IRequest {
   title: string;
@@ -13,7 +14,7 @@ interface IRequest {
 
 interface IResponse {
   car: Car;
-  carLog: CreateCarLog;
+  carLog: CarLog;
 }
 
 @injectable()
@@ -33,14 +34,24 @@ class CreateCarUseCase {
       age,
     });
 
-    // const car_id = car.id
-
     const carLog = await this.carsLogsRepository.createCarlog(car.id);
 
     const response: IResponse = {
       car,
       carLog,
     };
+
+    const accountSid = "AC7c6d4bbe1e4d69bff137a7a82d27f922";
+    const authToken = "7cde83ec8d08cefab7641c90cd696521";
+    const client = new Twilio(accountSid, authToken);
+
+    client.messages
+      .create({
+        from: "+17625256474",
+        to: "+5511995418955",
+        body: "A new Car has been created",
+      })
+      .then((message) => console.log(message.sid));
 
     return response;
   }

@@ -7,7 +7,6 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "test": "jest --runInBand --detectOpenHandles",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli"
-
   },
   "author": "Michel B. da Fonseca",
   "license": "ISC",
@@ -39,6 +38,7 @@
     "pg": "^8.11.1",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.8.0",
+    "twilio": "^4.14.1",
     "typeorm": "^0.2.45",
     "uuid": "^9.0.0"
   }
